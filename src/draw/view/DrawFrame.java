@@ -21,7 +21,7 @@ public class DrawFrame extends JFrame
 	private void setupFrame()
 	{
 		this.setContentPane(basePanel);
-		this.setTitle("Game");
+		this.setTitle("ART!!!");
 		this.setSize(800, 800);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setVisible(true);

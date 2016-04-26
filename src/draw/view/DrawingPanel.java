@@ -24,28 +24,34 @@ public class DrawingPanel extends JPanel
 	private DrawFrame baseFrame;
 	private SpringLayout baseLayout;
 	private ShapePanel shapePanel;
-	private JButton drawRectangleButton;
 	private ArrayList<Rectangle> rectangleList;
 	
 	public DrawingPanel(DrawController baseController, DrawFrame baseFrame)
 	{
 		this.baseController = baseController;
 		this.baseFrame = baseFrame;
+		
+		shapePanel = new ShapePanel(baseController, baseFrame);
 		baseLayout = new SpringLayout();
-		shapePanel = new ShapePanel();
+		baseLayout.putConstraint(SpringLayout.NORTH, shapePanel, 57, SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.WEST, shapePanel, 73, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.SOUTH, shapePanel, 253, SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.EAST, shapePanel, 364, SpringLayout.WEST, this);
 		rectangleList = new ArrayList<Rectangle>();
 		
-		drawRectangleButton = new JButton("Draw the rectangle");
 		
 		setupPanel();
 		setupLayout();
 		setupListeners();
+		
+		
+		
 	}
 	
 	private void setupPanel()
 	{
 		this.setLayout(baseLayout);
-		this.add(drawRectangleButton);
+		this.add(shapePanel);
 	}
 
 	private void setupLayout()
@@ -56,16 +62,6 @@ public class DrawingPanel extends JPanel
 
 	private void setupListeners()
 	{
-		drawRectangleButton.addActionListener(new ActionListener()
-		{
-
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				addRectangle();
-			}
-			
-		});
 	
 		this.addMouseMotionListener(new MouseMotionListener()
 		{
@@ -74,7 +70,7 @@ public class DrawingPanel extends JPanel
 			public void mouseDragged(MouseEvent e)
 			{
 				addRectangle(e.getX(), e.getY());
-				addRectangle();
+				
 			}
 
 			@Override
@@ -115,6 +111,7 @@ public class DrawingPanel extends JPanel
 	protected void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
+		
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setColor(Color.GREEN);
 		g2d.setStroke(new BasicStroke(15));
@@ -130,5 +127,6 @@ public class DrawingPanel extends JPanel
 			
 			g2d.fill(current);
 		}
+		
 	}
 }
