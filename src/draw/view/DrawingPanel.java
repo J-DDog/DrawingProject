@@ -13,6 +13,7 @@ import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
@@ -24,27 +25,24 @@ public class DrawingPanel extends JPanel
 	private DrawFrame baseFrame;
 	private SpringLayout baseLayout;
 	private ShapePanel shapePanel;
-	private ArrayList<Rectangle> rectangleList;
+	
+	private JLabel countLabel;
 	
 	public DrawingPanel(DrawController baseController, DrawFrame baseFrame)
 	{
 		this.baseController = baseController;
 		this.baseFrame = baseFrame;
 		
-		shapePanel = new ShapePanel(baseController, baseFrame);
+		shapePanel = new ShapePanel(baseController, baseFrame, this);
 		baseLayout = new SpringLayout();
-		baseLayout.putConstraint(SpringLayout.NORTH, shapePanel, 57, SpringLayout.NORTH, this);
-		baseLayout.putConstraint(SpringLayout.WEST, shapePanel, 73, SpringLayout.WEST, this);
-		baseLayout.putConstraint(SpringLayout.SOUTH, shapePanel, 253, SpringLayout.NORTH, this);
-		baseLayout.putConstraint(SpringLayout.EAST, shapePanel, 364, SpringLayout.WEST, this);
-		rectangleList = new ArrayList<Rectangle>();
+		countLabel = new JLabel("0");
+		baseLayout.putConstraint(SpringLayout.NORTH, countLabel, 0, SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.WEST, countLabel, 0, SpringLayout.WEST, this);
 		
 		
 		setupPanel();
 		setupLayout();
 		setupListeners();
-		
-		
 		
 	}
 	
@@ -52,81 +50,25 @@ public class DrawingPanel extends JPanel
 	{
 		this.setLayout(baseLayout);
 		this.add(shapePanel);
+		this.add(countLabel);
 	}
 
 	private void setupLayout()
 	{
-		// TODO Auto-generated method stub
+		baseLayout.putConstraint(SpringLayout.NORTH, shapePanel, 60, SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.WEST, shapePanel, 0, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.SOUTH, shapePanel, 0, SpringLayout.SOUTH, this);
+		baseLayout.putConstraint(SpringLayout.EAST, shapePanel, 0, SpringLayout.EAST, this);
 		
 	}
 
 	private void setupListeners()
 	{
-	
-		this.addMouseMotionListener(new MouseMotionListener()
-		{
-
-			@Override
-			public void mouseDragged(MouseEvent e)
-			{
-				addRectangle(e.getX(), e.getY());
-				
-			}
-
-			@Override
-			public void mouseMoved(MouseEvent e)
-			{
-				addRectangle();
-				
-			}
-
-			
-			
-		});
-		
-		
 	}
 
-	private void addRectangle()
+	public void updateCounter(int count)
 	{
-		int xPosition = (int)(Math.random() * baseFrame.getWidth());
-		int yPosition = (int)(Math.random() * baseFrame.getHeight());
-		int width = (int)(Math.random() * 50);
-		int height = (int)(Math.random() * 50);
-		
-		rectangleList.add(new Rectangle(xPosition, yPosition, width, height));
-		repaint();
+		countLabel.setText(""+count);
 	}
 	
-	private void addRectangle(int x, int y)
-	{
-		int width = (int)(Math.random() * 50);
-		int height = (int)(Math.random() * 50);
-		
-		rectangleList.add(new Rectangle(x, y, width, height));
-		repaint();
-	}
-	
-	@Override
-	protected void paintComponent(Graphics g)
-	{
-		super.paintComponent(g);
-		
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.setColor(Color.GREEN);
-		g2d.setStroke(new BasicStroke(15));
-		
-		for(Rectangle current : rectangleList)
-		{
-			int randomStroke = (int)(Math.random() * 7);
-			int red = (int)(Math.random() * 256);
-			int blue = (int)(Math.random() * 256);
-			int green = (int)(Math.random() * 256);
-			g2d.setColor(new Color(red, green, blue));
-			g2d.setStroke(new BasicStroke(randomStroke));
-			
-			g2d.fill(current);
-		}
-		
-	}
 }

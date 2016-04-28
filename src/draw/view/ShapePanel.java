@@ -20,6 +20,7 @@ public class ShapePanel extends JPanel
 {
 	private DrawController baseController;
 	private DrawFrame baseFrame;
+	private DrawingPanel basePanel;
 	
 	private ArrayList<Rectangle> rectangleList;
 	private ArrayList<Rectangle> squareList;
@@ -28,15 +29,15 @@ public class ShapePanel extends JPanel
 	private ArrayList<Ellipse2D> ellipseList;
 	private ArrayList<Ellipse2D> circleList;
 	
-	private JLabel lblNewLabel;
+	private int totalShapes;
  	
-	public ShapePanel(DrawController baseController, DrawFrame baseFrame)
+	public ShapePanel(DrawController baseController, DrawFrame baseFrame, DrawingPanel basePanel)
 	{
 		this.baseController = baseController;
 		this.baseFrame = baseFrame;
+		this.basePanel = basePanel;
 		
-		 lblNewLabel = new JLabel("New label");
-		
+		totalShapes = 0;
 		
 		rectangleList = new ArrayList<Rectangle>();
 		squareList = new ArrayList<Rectangle>();
@@ -52,7 +53,7 @@ public class ShapePanel extends JPanel
 	
 	private void setupPanel()
 	{
-		add(lblNewLabel);
+		
 		
 	}
 
@@ -71,6 +72,7 @@ public class ShapePanel extends JPanel
 			public void mouseDragged(MouseEvent e)
 			{
 				addRectangle(e.getX(), e.getY());
+				updateShapeCount();
 				
 			}
 
@@ -79,12 +81,24 @@ public class ShapePanel extends JPanel
 			{
 				addRectangle();
 				addTriangle();
-				
+				updateShapeCount();
 			}
 			
 		});
 		
 		
+	}
+	
+	private void updateShapeCount()
+	{
+		totalShapes = 0;
+		totalShapes += rectangleList.size();
+		totalShapes += squareList.size();
+		totalShapes += polygonList.size();
+		totalShapes += triangleList.size();
+		totalShapes += ellipseList.size();
+		totalShapes += circleList.size();
+		basePanel.updateCounter(totalShapes);
 	}
 
 	public void addRectangle()
@@ -94,17 +108,23 @@ public class ShapePanel extends JPanel
 		int width = (int)(Math.random() * 50);
 		int height = (int)(Math.random() * 50);
 		
+		xPosition -= width/2;
+		yPosition -= height/2;
+		
 		Rectangle rectangle = new Rectangle(xPosition, yPosition, width, height);
 		rectangleList.add(rectangle);
 		repaint();
 	}
 	
-	private void addRectangle(int x, int y)
+	private void addRectangle(int xPosition, int yPosition)
 	{
 		int width = (int)(Math.random() * 50);
 		int height = (int)(Math.random() * 50);
 		
-		Rectangle rectangle = new Rectangle(x, y, width, height);
+		xPosition -= width/2;
+		yPosition -= height/2;
+		
+		Rectangle rectangle = new Rectangle(xPosition, yPosition, width, height);
 		rectangleList.add(rectangle);
 		repaint();
 	}
