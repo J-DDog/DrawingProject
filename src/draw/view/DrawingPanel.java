@@ -64,7 +64,9 @@ public class DrawingPanel extends JPanel
 
 	private void setupListeners()
 	{
+		
 	}
+
 
 	public void updateCounter(int count)
 	{

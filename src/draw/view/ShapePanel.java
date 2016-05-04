@@ -81,6 +81,7 @@ public class ShapePanel extends JPanel
 			{
 				addRectangle();
 				addTriangle();
+				addCircle();
 				updateShapeCount();
 			}
 			
@@ -141,10 +142,13 @@ public class ShapePanel extends JPanel
 	
 	public void addCircle()
 	{
-		int xPoint = (int)(Math.random() * 100);
-		int yPoint = (int)(Math.random() * 100);
+		int xPoint = (int)(Math.random() * baseFrame.getWidth()-50);
+		int yPoint = (int)(Math.random() * baseFrame.getHeight()-50);
 		int diameter = (int)(Math.random() * 100);
 		
+		Ellipse2D circle = new Ellipse2D.Double(xPoint, yPoint, diameter, diameter);
+		circleList.add(circle);
+		repaint();
 	}
 	
 	public void addTriangle()
@@ -194,7 +198,8 @@ public class ShapePanel extends JPanel
 			int red = (int)(Math.random() * 256);
 			int blue = (int)(Math.random() * 256);
 			int green = (int)(Math.random() * 256);
-			g2d.setColor(new Color(red, green, blue));
+			int alph = (int)(Math.random() * 255);
+			g2d.setColor(new Color(red, green, blue, alph));
 			g2d.setStroke(new BasicStroke(randomStroke));
 			
 			g2d.fill(current);
@@ -206,7 +211,8 @@ public class ShapePanel extends JPanel
 			int red = (int)(Math.random() * 256);
 			int blue = (int)(Math.random() * 256);
 			int green = (int)(Math.random() * 256);
-			g2d.setColor(new Color(red, green, blue));
+			int alph = (int)(Math.random() * 255);
+			g2d.setColor(new Color(red, green, blue, alph));
 			g2d.setStroke(new BasicStroke(randomStroke));
 			
 			g2d.fill(current);
@@ -218,7 +224,8 @@ public class ShapePanel extends JPanel
 			int red = (int)(Math.random() * 256);
 			int blue = (int)(Math.random() * 256);
 			int green = (int)(Math.random() * 256);
-			g2d.setColor(new Color(red, green, blue));
+			int alph = (int)(Math.random() * 255);
+			g2d.setColor(new Color(red, green, blue, alph));
 			g2d.setStroke(new BasicStroke(randomStroke));
 			
 			g2d.fill(current);
@@ -230,7 +237,8 @@ public class ShapePanel extends JPanel
 			int red = (int)(Math.random() * 256);
 			int blue = (int)(Math.random() * 256);
 			int green = (int)(Math.random() * 256);
-			g2d.setColor(new Color(red, green, blue));
+			int alph = (int)(Math.random() * 255);
+			g2d.setColor(new Color(red, green, blue, alph));
 			g2d.setStroke(new BasicStroke(randomStroke));
 			
 			g2d.fill(current);
@@ -242,7 +250,8 @@ public class ShapePanel extends JPanel
 			int red = (int)(Math.random() * 256);
 			int blue = (int)(Math.random() * 256);
 			int green = (int)(Math.random() * 256);
-			g2d.setColor(new Color(red, green, blue));
+			int alph = (int)(Math.random() * 255);
+			g2d.setColor(new Color(red, green, blue, alph));
 			g2d.setStroke(new BasicStroke(randomStroke));
 			
 			g2d.fill(current);
@@ -254,7 +263,8 @@ public class ShapePanel extends JPanel
 			int red = (int)(Math.random() * 256);
 			int blue = (int)(Math.random() * 256);
 			int green = (int)(Math.random() * 256);
-			g2d.setColor(new Color(red, green, blue));
+			int alph = (int)(Math.random() * 255);
+			g2d.setColor(new Color(red, green, blue, alph));
 			g2d.setStroke(new BasicStroke(randomStroke));
 			
 			g2d.fill(current);
