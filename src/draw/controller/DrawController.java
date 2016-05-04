@@ -11,7 +11,6 @@ public class DrawController
 	public DrawController()
 	{
 		baseFrame = new DrawFrame(this);
-		
 	}
 	
 	public void start()
